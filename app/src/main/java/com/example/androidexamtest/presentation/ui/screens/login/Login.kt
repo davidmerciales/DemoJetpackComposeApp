@@ -23,11 +23,17 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +42,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -48,6 +56,9 @@ import kotlin.math.log
 fun HomeScreen(
     loginViewModel: LoginViewModel = hiltViewModel()
 ) {
+    var isPasswordVisible by remember {
+        mutableStateOf(false)
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -98,10 +109,6 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
-                            modifier = Modifier
-                                .clickable {
-                                    loginViewModel.setEvent(LoginContract.LoginEvent.OnLoginButtonClicked)
-                                },
                             text = "Username",
                             style = TextStyle(
                                 fontSize = 15.sp,
@@ -163,25 +170,39 @@ fun HomeScreen(
 
                     Spacer(modifier = Modifier.height(5.dp))
 
-                    BasicTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.White, RoundedCornerShape(3.dp))
-                            .padding(13.dp),
-                        value = loginViewModel.state.password,
-                        onValueChange = { title ->
-                            loginViewModel.state.password = title
-                        },
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 12.sp,
-                            platformStyle = PlatformTextStyle(
-                                includeFontPadding = false
-                            )
-                        ),
-                        singleLine = true,
-                        maxLines = 1
-                    )
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        BasicTextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.White, RoundedCornerShape(3.dp))
+                                .padding(13.dp)
+                                .padding(end = 40.dp),
+                            value = loginViewModel.state.password,
+                            onValueChange = { title ->
+                                loginViewModel.state.password = title
+                            },
+                            textStyle = TextStyle(
+                                color = Color.Black,
+                                fontSize = 12.sp,
+                                platformStyle = PlatformTextStyle(
+                                    includeFontPadding = false
+                                )
+                            ),
+                            singleLine = true,
+                            maxLines = 1,
+                            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
+                        )
+
+                        Icon(
+                            modifier = Modifier
+                                .align(Alignment.CenterEnd)
+                                .padding(horizontal = 13.dp)
+                                .clickable { isPasswordVisible = !isPasswordVisible },
+                            imageVector = if (isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                            contentDescription = null,
+                            tint = Color(0Xff061269)
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(30.dp))
