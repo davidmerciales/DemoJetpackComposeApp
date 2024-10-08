@@ -22,6 +22,7 @@ multidex = "1.0.3"
 swipe-refresh = "1.1.1"
 glide = "1.0.0-beta01"
 extended_icon_version = "1.5.0"
+couchbase_lite_version = "3.0.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -60,6 +61,7 @@ multidex = { group = "com.android.support", name = "multidex", version.ref = "mu
 swipe-refresh = { group = "eu.bambooapps", name = "compose-material3-pullrefresh", version.ref = "swipe-refresh" }
 glide = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
 extended-icon = { group = "org.jetbrains.compose.material", name = "material-icons-extended", version.ref = "extended_icon_version"}
+couchbase_lite = { group = "com.couchbase.lite", name = "couchbase-lite-android-ktx", version.ref = "couchbase_lite_version"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

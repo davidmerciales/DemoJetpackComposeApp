@@ -39,9 +39,6 @@ fun AppController.CollectEvents(
                 is NavUiEvent.ShowDialog -> {
                     Toast.makeText(context, appEvent.message, Toast.LENGTH_LONG).show()
                 }
-
-                is NavUiEvent.LoadingDialog -> {
-                }
             }
         }
     }

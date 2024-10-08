@@ -3,7 +3,6 @@ package com.example.androidexamtest.presentation.ui.screens.login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -19,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
@@ -27,8 +25,6 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,15 +37,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.androidexamtest.R
-import kotlin.math.log
 
 
 @Composable
@@ -59,9 +52,9 @@ fun HomeScreen(
     var isPasswordVisible by remember {
         mutableStateOf(false)
     }
+
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_crane),
@@ -138,8 +131,6 @@ fun HomeScreen(
                         singleLine = true,
                         maxLines = 1
                     )
-
-
                 }
 
                 Spacer(modifier = Modifier.height(15.dp))
@@ -156,10 +147,6 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
-                            modifier = Modifier
-                                .clickable {
-                                    loginViewModel.setEvent(LoginContract.LoginEvent.OnLoginButtonClicked)
-                                },
                             text = "Password",
                             style = TextStyle(
                                 fontSize = 15.sp,
@@ -215,7 +202,7 @@ fun HomeScreen(
                         .clickable {
                             loginViewModel.setEvent(LoginContract.LoginEvent.OnLoginButtonClicked)
                         }
-                ){
+                ) {
                     Text(
                         modifier = Modifier
                             .align(Alignment.Center),

@@ -2,6 +2,8 @@ package com.example.androidexamtest.presentation.ui.screens.login
 
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidexamtest.data.remote.model.request.LoginUserRequest
+import com.example.androidexamtest.domain.usecase.LoginUseCase
 import com.example.androidexamtest.presentation.navigation.AppController
 import com.example.androidexamtest.presentation.navigation.Destinations
 import com.example.androidexamtest.presentation.navigation.NavUiEvent
@@ -13,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val navController: AppController,
+    private val loginUseCase: LoginUseCase
 ) : BaseViewModel<LoginContract.LoginState, LoginContract.LoginEvent>() {
     override val state: LoginContract.LoginState = LoginContract.MutableLoginState()
 
@@ -28,16 +31,24 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun login() = viewModelScope.launch{
-        if (state.username != "admin" && state.password != "admin"){
-            navController.sendUiEvent(NavUiEvent.ShowDialog("Incorrect username or password"))
-            return@launch
-        }
-        navController.sendUiEvent(NavUiEvent.Navigate(Destinations.DetailScreen))
-        navController.sendUiEvent(NavUiEvent.ShowDialog("Login success!"))
+
+        loginUseCase(
+            params = LoginUserRequest(
+                email = state.username,
+                password = state.password
+            ),
+            onSuccess = {
+                navController.sendUiEvent(NavUiEvent.Navigate(Destinations.DetailScreen))
+                navController.sendUiEvent(NavUiEvent.ShowDialog("Login success!"))
+            },
+            onFailure = {
+                navController.sendUiEvent(NavUiEvent.ShowDialog("Login Failed!"))
+            }
+        )
 
     }
 
-    private fun forgotPassword()= viewModelScope.launch{
+    private fun forgotPassword() = viewModelScope.launch{
         navController.sendUiEvent(NavUiEvent.ShowDialog("Please remember your password!"))
     }
 }

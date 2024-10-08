@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.swipe.refresh)
     implementation(libs.glide)
     implementation(libs.extended.icon)
+    implementation(libs.couchbase.lite)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
