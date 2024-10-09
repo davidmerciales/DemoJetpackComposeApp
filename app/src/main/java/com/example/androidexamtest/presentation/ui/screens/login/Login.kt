@@ -42,6 +42,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.androidexamtest.LocalLoadingSession
 import com.example.androidexamtest.R
 
 
@@ -49,6 +50,7 @@ import com.example.androidexamtest.R
 fun HomeScreen(
     loginViewModel: LoginViewModel = hiltViewModel()
 ) {
+    val loadingState = LocalLoadingSession.current
     var isPasswordVisible by remember {
         mutableStateOf(false)
     }
@@ -200,6 +202,7 @@ fun HomeScreen(
                         .fillMaxHeight(0.28f)
                         .background(Color(0Xff061269))
                         .clickable {
+                            loadingState.value = true
                             loginViewModel.setEvent(LoginContract.LoginEvent.OnLoginButtonClicked)
                         }
                 ) {

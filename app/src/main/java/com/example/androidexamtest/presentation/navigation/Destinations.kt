@@ -9,5 +9,14 @@ sealed class Destinations {
     data object HomeScreen : Destinations()
 
     @Serializable
-    data object DetailScreen : Destinations()
+    data object EJOManagementScreen : Destinations()
+
+    @Serializable
+    data object ESRManagementScreen : Destinations()
+
+    @Serializable
+    data object FRISManagementScreen : Destinations()
+
+    @Serializable
+    data object EJOESRApprovalScreen : Destinations()
 }

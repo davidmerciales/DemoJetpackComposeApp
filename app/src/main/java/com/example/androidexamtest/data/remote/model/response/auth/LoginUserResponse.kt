@@ -1,4 +1,4 @@
-package com.example.androidexamtest.data.remote.model.response
+package com.example.androidexamtest.data.remote.model.response.auth
 
 import kotlinx.serialization.Serializable
 

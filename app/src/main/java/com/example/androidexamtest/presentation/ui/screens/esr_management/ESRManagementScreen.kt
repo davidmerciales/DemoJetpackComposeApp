@@ -1,4 +1,4 @@
-package com.example.androidexamtest.presentation.ui.screens.detail
+package com.example.androidexamtest.presentation.ui.screens.esr_management
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,13 +7,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androidexamtest.LocalLoadingSession
 
 @Preview
 @Composable
-fun DetailScreen() {
+fun ESRManagementScreen() {
+    LocalLoadingSession.current.value = false
     Box(modifier = Modifier
-        .fillMaxSize()) {
+        .fillMaxSize(),
+        contentAlignment = Alignment.Center) {
 
-        Text(text = "DetailScreen")
+        Text(text = "ESR Management")
     }
 }
