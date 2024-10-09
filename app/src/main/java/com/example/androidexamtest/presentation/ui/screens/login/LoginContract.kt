@@ -14,13 +14,13 @@ class LoginContract {
     }
 
     interface LoginState: UiState {
-        var username: String
+        var email: String
         var password: String
         var isLoading: Boolean
     }
 
     class MutableLoginState: LoginState {
-        override var username: String by mutableStateOf("")
+        override var email: String by mutableStateOf("")
         override var password: String by mutableStateOf("")
         override var isLoading: Boolean by mutableStateOf(false)
     }

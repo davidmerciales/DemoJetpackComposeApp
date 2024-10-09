@@ -1,7 +1,6 @@
 package com.example.androidexamtest.presentation.ui.screens.login
 
 import androidx.lifecycle.viewModelScope
-import com.example.androidexamtest.LocalLoadingSession
 import com.example.androidexamtest.data.remote.model.request.LoginUserRequest
 import com.example.androidexamtest.domain.model.GetRoleRequest
 import com.example.androidexamtest.domain.usecase.GetRoleUseCase
@@ -38,7 +37,7 @@ class LoginViewModel @Inject constructor(
 
         loginUseCase(
             params = LoginUserRequest(
-                email = state.username,
+                email = state.email,
                 password = state.password
             ),
             onSuccess = {

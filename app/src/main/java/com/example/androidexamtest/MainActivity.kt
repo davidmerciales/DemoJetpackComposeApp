@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
@@ -33,6 +34,7 @@ import com.example.androidexamtest.presentation.ui.screens.ejo_management.EJOMan
 import com.example.androidexamtest.presentation.ui.screens.esr_management.ESRManagementScreen
 import com.example.androidexamtest.presentation.ui.screens.fris_management.FRISManagementScreen
 import com.example.androidexamtest.presentation.ui.screens.login.HomeScreen
+import com.example.androidexamtest.presentation.utils.clickableNoRipple
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -98,7 +100,9 @@ fun CircularLoading(){
     if (!LocalLoadingSession.current.value) return
     Box(modifier = Modifier
         .fillMaxSize()
-        .background(Color.Black.copy(alpha = 0.2f))){
+        .background(Color.Black.copy(alpha = 0.2f))
+        .clickableNoRipple()){
+
         CircularProgressIndicator(
             modifier = Modifier
                 .width(64.dp)

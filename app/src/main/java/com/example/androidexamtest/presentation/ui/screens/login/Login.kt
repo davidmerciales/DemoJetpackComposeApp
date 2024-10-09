@@ -92,48 +92,13 @@ fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Column {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            modifier = Modifier.size(height.times(0.05f)),
-                            imageVector = Icons.Default.Person,
-                            contentDescription = null,
-                            tint = Color(0Xff061269)
-                        )
-
-                        Spacer(modifier = Modifier.width(5.dp))
-
-                        Text(
-                            text = "Username",
-                            style = TextStyle(
-                                fontSize = 15.sp,
-                                color = Color(0Xff061269)
-                            )
-                        )
+                EmailTextField(
+                    iconModifier = Modifier.size(height.times(0.05f)),
+                    email = loginViewModel.state.email,
+                    onEmailChange = {email->
+                        loginViewModel.state.email = email
                     }
-
-                    Spacer(modifier = Modifier.height(5.dp))
-
-                    BasicTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.White, RoundedCornerShape(3.dp))
-                            .padding(13.dp),
-                        value = loginViewModel.state.username,
-                        onValueChange = { title ->
-                            loginViewModel.state.username = title
-                        },
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 12.sp,
-                            platformStyle = PlatformTextStyle(
-                                includeFontPadding = false
-                            )
-                        ),
-                        singleLine = true,
-                        maxLines = 1
-                    )
-                }
+                )
 
                 Spacer(modifier = Modifier.height(15.dp))
 
@@ -196,25 +161,12 @@ fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.28f)
-                        .background(Color(0Xff061269))
-                        .clickable {
-                            loadingState.value = true
-                            loginViewModel.setEvent(LoginContract.LoginEvent.OnLoginButtonClicked)
-                        }
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .align(Alignment.Center),
-                        text = "Login",
-                        style = TextStyle(
-                            color = Color.White
-                        )
-                    )
-                }
+                LoginButton(
+                    onClick = {
+                        loadingState.value = true
+                        loginViewModel.setEvent(LoginContract.LoginEvent.OnLoginButtonClicked)
+                    }
+                )
 
                 Spacer(modifier = Modifier.height(30.dp))
 
@@ -230,5 +182,81 @@ fun HomeScreen(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun LoginButton(
+    onClick: () -> Unit
+) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.28f)
+            .background(Color(0Xff061269))
+            .clickable {
+                onClick()
+            }
+    ) {
+        Text(
+            modifier = Modifier
+                .align(Alignment.Center),
+            text = "Login",
+            style = TextStyle(
+                color = Color.White
+            )
+        )
+    }
+}
+
+@Composable
+fun EmailTextField(
+    iconModifier: Modifier,
+    email: String,
+    onEmailChange: (String) -> Unit
+){
+
+    Column {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                modifier = iconModifier,
+                imageVector = Icons.Default.Person,
+                contentDescription = null,
+                tint = Color(0Xff061269)
+            )
+
+            Spacer(modifier = Modifier.width(5.dp))
+
+            Text(
+                text = "Username",
+                style = TextStyle(
+                    fontSize = 15.sp,
+                    color = Color(0Xff061269)
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        BasicTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, RoundedCornerShape(3.dp))
+                .padding(13.dp),
+            value = email,
+            onValueChange = { title ->
+                onEmailChange(title)
+            },
+            textStyle = TextStyle(
+                color = Color.Black,
+                fontSize = 12.sp,
+                platformStyle = PlatformTextStyle(
+                    includeFontPadding = false
+                )
+            ),
+            singleLine = true,
+            maxLines = 1
+        )
     }
 }
